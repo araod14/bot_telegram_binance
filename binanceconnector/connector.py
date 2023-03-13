@@ -1,10 +1,13 @@
-#Documento de configuracion del token Binance
+##Documento de configuracion del token Binance
 import config
 
-#Python
+##Python
 from pprint import pprint
 
-#Binance-connector
+##Pandas
+import pandas as pd
+
+##Binance-connector
 from binance.spot import Spot
 
 
@@ -46,7 +49,9 @@ class RobotBinance:
         Return prices for the criptocurriencies:
         (btcusdt,solusdt)
         """
-        return self._request("ticker_price")
+        criptos =pd.DataFrame(self._request("ticker_price"), columns=["symbol","price"])
+        return criptos
+        
          
 
 if __name__=="__main__":
