@@ -50,7 +50,13 @@ class RobotBinance:
         (btcusdt,solusdt)
         """
         criptos =pd.DataFrame(self._request("ticker_price"), columns=["symbol","price"])
-        return criptos
+        criptos.price = criptos.price.astype("float")
+        t_criptos = (
+                    criptos.loc[criptos["symbol"]=="BTCUSDT"],
+                    criptos.loc[criptos["symbol"]=="ETHUSDT"],
+                    criptos.loc[criptos["symbol"]=="TRXUSDT"] 
+                    )
+        return pprint(t_criptos)
         
          
 
