@@ -7,21 +7,21 @@ import threading
 bot = telebot.TeleBot(TELEGRAM_TOKEN)
 
 #Responde al comando /start
-@bot.message_handler(commands=["start", "ayuda", "help"])
+@bot.message_handler(commands=["start", "help"])
 def cmd_start(message):
     """
-    Da la bienvenida al usuario del bot
+    Welcome to User
     """
-    bot.reply_to(message, "Habla claro CTM")
+    bot.reply_to(message, "Welocome to your cryptobot")
     print(message.chat.id)
 
 @bot.message_handler(content_types=["text"])
 def bot_message_text(message):
     """
-    Gestinoa los mensajes de texto recibidos
+    Messages handler
     """
     if message.text and message.text.startswith("/"):
-        bot.send_message(message.chat.id, "Comando no disponible")
+        bot.send_message(message.chat.id, "not find command")
     else:
         x_message = bot.send_message(message.chat.id, "Aprendiendo de a poco")
         #con parse_mode puedo añadir formato markdown o html
@@ -33,13 +33,13 @@ def bot_message_text(message):
 
 def reciving_messages():
     """
-    Bucle infinito para recibir mensajes
+    infinity loop
     """
     bot.infinity_polling()
 
 if __name__ == '__main__':
     bot.set_my_commands([
-        telebot.types.BotCommand("/start", "Da la bienvenida")
+        telebot.types.BotCommand("/start", "Welcome to user")
     ])
     print("iniciando el bot")
     thread_bot= threading.Thread(name="hilo_bot", target=reciving_messages)

@@ -1,8 +1,5 @@
-##Documento de configuracion del token Binance
+##Binance token
 import config
-
-##Python
-from pprint import pprint
 
 ##Pandas
 import pandas as pd
@@ -54,15 +51,16 @@ class RobotBinance:
         t_criptos = (
                     criptos.loc[criptos["symbol"]=="BTCUSDT"],
                     criptos.loc[criptos["symbol"]=="ETHUSDT"],
-                    criptos.loc[criptos["symbol"]=="TRXUSDT"] 
+                    criptos.loc[criptos["symbol"]=="TRXUSDT"],
+                    criptos.loc[criptos["symbol"]=="LINKUSDT"], 
+                    criptos.loc[criptos["symbol"]=="XLMUSDT"],
+                    criptos.loc[criptos["symbol"]=="NIUSDT"],
+                    criptos.loc[criptos["symbol"]=="ALGOUSDT"],
+                    criptos.loc[criptos["symbol"]=="AAVEUSDT"]
                     )
-        return pprint(t_criptos)
+        return t_criptos
         
-         
 
-if __name__=="__main__":
-    bot= RobotBinance()
-    pprint(bot.symbol_price())
 
 
 
