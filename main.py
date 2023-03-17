@@ -1,6 +1,6 @@
 from config import *
+from telebot import types
 import telebot
-import time
 import threading
 
 #Instanciar el bot
@@ -15,21 +15,13 @@ def cmd_start(message):
     bot.reply_to(message, "Welocome to your cryptobot")
     print(message.chat.id)
 
-@bot.message_handler(content_types=["text"])
-def bot_message_text(message):
-    """
-    Messages handler
-    """
-    if message.text and message.text.startswith("/"):
-        bot.send_message(message.chat.id, "not find command")
-    else:
-        x_message = bot.send_message(message.chat.id, "Aprendiendo de a poco")
-        #con parse_mode puedo añadir formato markdown o html
-        bot.send_chat_action(message.chat.id, "typing")
-        time.sleep(3)
-        bot.edit_message_text("Chao", message.chat.id, x_message.message_id)
-        time.sleep(3)
-        bot.delete_message(message.chat.id, x_message.message_id)
+    markup = types.ReplyKeyboardMarkup(row_width=2)
+    itembtn1 = types.KeyboardButton('Saldo')
+    itembtn2 = types.KeyboardButton('Precios')
+    itembtn3 = types.KeyboardButton('Señales')
+    markup.add(itembtn1, itembtn2, itembtn3)
+    bot.send_message(message.chat.id, "Choose one letter:", reply_markup=markup)
+
 
 def reciving_messages():
     """
@@ -44,4 +36,4 @@ if __name__ == '__main__':
     print("iniciando el bot")
     thread_bot= threading.Thread(name="hilo_bot", target=reciving_messages)
     thread_bot.start()
-    print('El Bot esta ccorriendo')
+    print('El Bot esta corriendo')
