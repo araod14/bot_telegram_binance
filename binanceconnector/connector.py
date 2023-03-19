@@ -1,5 +1,5 @@
 ##Binance token
-import config
+import configbinan
 
 ##Pandas
 import pandas as pd
@@ -12,8 +12,8 @@ class RobotBinance:
     """
     Bot para binance en spot, compra y venta
     """
-    __api_key = config.API_KEY
-    __api_secret = config.API_SECET_KEY
+    __api_key = configbinan.API_KEY
+    __api_secret = configbinan.API_SECET_KEY
     binance_client = Spot(key=__api_key ,secret=__api_secret)
 
     def __init__(self):

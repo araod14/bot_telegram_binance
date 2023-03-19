@@ -2,6 +2,7 @@ from config import *
 from telebot import types
 import telebot
 import threading
+from binanceconnector import connector as conn
 
 #Instanciar el bot
 bot = telebot.TeleBot(TELEGRAM_TOKEN)

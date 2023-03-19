@@ -1,0 +1,2 @@
+API_KEY="UQlY4jkQiABuxv8UxvCc2GAsBQeaUoQHuregAB8EX05UsyzS1PtN4LsBdlW6nH2d"
+API_SECET_KEY="KzZwhpwp48nY4R8H66nZfYPRvwnmrtztio1r4UpelZTegPVNZjbmqiExtbIuoulw"
