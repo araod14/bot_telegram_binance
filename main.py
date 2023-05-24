@@ -1,39 +1,33 @@
-from config import *
-from telebot import types
 import telebot
-import threading
-
-#Instanciar el bot
-bot = telebot.TeleBot(TELEGRAM_TOKEN)
-
-#Responde al comando /start
-@bot.message_handler(commands=["start", "help"])
-def cmd_start(message):
-    """
-    Welcome to User
-    """
-    bot.reply_to(message, "Welocome to your cryptobot")
-    print(message.chat.id)
-
-    markup = types.ReplyKeyboardMarkup(row_width=2)
-    itembtn1 = types.KeyboardButton('Saldo')
-    itembtn2 = types.KeyboardButton('Precios')
-    itembtn3 = types.KeyboardButton('Señales')
-    markup.add(itembtn1, itembtn2, itembtn3)
-    bot.send_message(message.chat.id, "Choose one letter:", reply_markup=markup)
+import time
+from binance.client import Client
 
 
-def reciving_messages():
-    """
-    infinity loop
-    """
-    bot.infinity_polling()
+# Set up the bot
+bot = telebot.TeleBot(token='YOUR_BOT_TOKEN')
 
-if __name__ == '__main__':
-    bot.set_my_commands([
-        telebot.types.BotCommand("/start", "Welcome to user")
-    ])
-    print("iniciando el bot")
-    thread_bot= threading.Thread(name="hilo_bot", target=reciving_messages)
-    thread_bot.start()
-    print('El Bot esta corriendo')
+# Set up the Binance client
+api_key = 'YOUR_API_KEY'
+api_secret = 'YOUR_API_SECRET'
+client = Client(api_key, api_secret)
+
+# Define the function to retrieve the wallet balance and cryptocurrency price
+def retrieve_balance_and_price():
+    # Retrieve the wallet balance
+    balance = client.get_asset_balance(asset='USDT')
+    balance = float(balance['free'])
+    
+    # Retrieve the cryptocurrency price
+    symbol = 'BTCUSDT'
+    price = client.get_avg_price(symbol=symbol)
+    price = float(price['price'])
+
+    # Send a message to the user with the wallet balance and cryptocurrency price
+    message = f"Your wallet balance is {balance:.2f} USDT\n"
+    message += f"The price of {symbol} is {price:.2f} USDT"
+    bot.send_message(chat_id='YOUR_CHAT_ID', text=message)
+
+# Set up the timer to run the function every 5 minutes
+while True:
+    retrieve_balance_and_price()
+    time.sleep(300)
